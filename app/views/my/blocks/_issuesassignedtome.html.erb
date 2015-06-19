@@ -1,0 +1,22 @@
+<% assigned_to_me  = issuesassignedtome_items(cookies[:my_per]) %>
+<h3>
+  <%= link_to l(:label_assigned_to_me_issues),
+        issues_path(:status_id => '*', :set_filter => 1, "f" => ["project_id", 'assigned_to_id', 'status_id'],
+                "op[project_id]" => "=", "v[project_id][]" => 'opened',
+                "op[assigned_to_id]" => "=", "v[assigned_to_id][]" => 'me',
+                "op[status_id]" => "o",
+                :sort => 'priority:desc,updated_on:desc') %>
+  (<%= assigned_to_me.size %>) 
+  <%= select_tag "per", options_for_select([10, 20, 50, 100], cookies[:my_per]), id: 'select-per' %>
+
+</h3>
+
+<%= render :partial => 'issues/list_simple', :locals => { :issues => assigned_to_me } %>
+
+<% content_for :header_tags do %>
+  <%= auto_discovery_link_tag(:atom,
+                              {:controller => 'issues', :action => 'index', :set_filter => 1,
+                               :assigned_to_id => 'me', :format => 'atom', :key => User.current.rss_key},
+                              {:title => l(:label_assigned_to_me_issues)}) %>
+  <%= javascript_include_tag 'my_page',  :plugin => 'redmine_override_my_issues' %>
+<% end %>
