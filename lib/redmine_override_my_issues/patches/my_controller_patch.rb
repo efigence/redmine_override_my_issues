@@ -1,5 +1,5 @@
 require_dependency 'my_controller'
-require 'pry'
+
 module RedmineOverrideMyIssues
   module Patches
     module MyControllerPatch
