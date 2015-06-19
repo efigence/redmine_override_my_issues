@@ -3,6 +3,10 @@
 This plugin overrides My Page, to shows user only issues from open projects.
 This plugin is dependent from this changes: http://www.redmine.org/issues/20134
 
+# Requirements
+
+Developed and tested on Redmine 3.0.0.
+
 ## Install
   1. Make sure that you Redmine version include this changes: http://www.redmine.org/issues/20134
   2. Go to your Redmine installation's plugins/ directory.
