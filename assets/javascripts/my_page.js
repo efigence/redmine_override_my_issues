@@ -6,9 +6,10 @@
 
     bindSelectPer: function(){
       $('#select-per').change(function(){
-        var per = parseInt($('#select-per').val());
+        var per = parseInt($('#select-per').val()),
+            url = window.location.href;
         $.ajax({
-          url: "/my/page",
+          url: url,
           type: "GET",
           data: { 'per' : per },
           success: function(data){
