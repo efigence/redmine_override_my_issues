@@ -1,4 +1,5 @@
-<% assigned_to_me  = issuesassignedtome_items(cookies[:my_per]) %>
+<% assigned_to_me  = Issue.my_open %>
+
 <h3>
   <%= link_to l(:label_assigned_to_me_issues),
         issues_path(:status_id => '*', :set_filter => 1, "f" => ["project_id", 'assigned_to_id', 'status_id'],
@@ -6,12 +7,12 @@
                 "op[assigned_to_id]" => "=", "v[assigned_to_id][]" => 'me',
                 "op[status_id]" => "o",
                 :sort => 'priority:desc,updated_on:desc') %>
-  (<%= assigned_to_me.size %>) 
+  (<%= assigned_to_me.count %>)
   <%= select_tag "per", options_for_select([10, 20, 50, 100], cookies[:my_per]), id: 'select-per' %>
 
 </h3>
 
-<%= render :partial => 'issues/list_simple', :locals => { :issues => assigned_to_me } %>
+<%= render :partial => 'issues/list_simple', :locals => { :issues => assigned_to_me.limit(cookies[:my_per]).to_a } %>
 
 <% content_for :header_tags do %>
   <%= auto_discovery_link_tag(:atom,

@@ -9,6 +9,6 @@ Redmine::Plugin.register :redmine_override_my_issues do
 
   ActionDispatch::Callbacks.to_prepare do
     MyController.send(:include, RedmineOverrideMyIssues::Patches::MyControllerPatch)
-    MyHelper.send(:include, RedmineOverrideMyIssues::Patches::MyHelperPatch)
+    Issue.send(:include, RedmineOverrideMyIssues::Patches::IssuePatch)
   end
 end
